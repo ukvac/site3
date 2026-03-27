@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UKVI - Fee Explanation Portal</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #dbe3ee;
+      --accent: #1d4ed8;
+      --accent-dark: #153eaa;
+      --warning-bg: #fff7ed;
+      --warning-border: #fdba74;
+      --success-bg: #ecfdf3;
+      --success-border: #86efac;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .topbar {
+      background: #111827;
+      color: #fff;
+      padding: 16px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 32px auto;
+      padding: 0 20px 40px;
+    }
+
+    .banner {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .banner strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff, #eef4ff);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 800px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin: 24px 0 30px;
+    }
+
+    .info-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .info-box h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+    }
+
+    .info-box p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section-title {
+      margin: 0 0 16px;
+      font-size: 24px;
+    }
+
+    .fee-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .fee-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fee-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: var(--accent);
+    }
+
+    .fee-card h2 {
+      margin: 0 0 8px;
+      font-size: 22px;
+    }
+
+    .amount {
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--accent-dark);
+      margin-bottom: 14px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #e0eaff;
+      color: var(--accent-dark);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .fee-card ul {
+      margin: 0 0 16px 18px;
+      padding: 0;
+    }
+
+    .fee-card li {
+      margin-bottom: 8px;
+      color: #374151;
+      font-size: 14px;
+    }
+
+    .note {
+      background: var(--success-bg);
+      border: 1px solid var(--success-border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: #166534;
+    }
+
+    .footer {
+      margin-top: 32px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .button-row {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 11px 16px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: #fff;
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .amount {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">Training Demo Portal</div>
+
+  <div class="container">
+    <div class="banner">
+      <strong>Educational / Internal Security Awareness Use Only</strong>
+      This fictional page is intended for internal training, UX testing, and fee-explanation mock-ups. It is not affiliated with any government body and must not be presented as an official service.
+    </div>
+
+    <section class="hero">
+      <h1>Fee Explanation Scenarios</h1>
+      <p>
+        This demo page shows example fee structures and possible explanations for why a user may be asked to pay a revised balance. It is designed for internal testing, awareness exercises, and user experience reviews.
+      </p>
+    </section>
+
+    <section class="info-grid">
+      <div class="info-box">
+        <h3>Purpose</h3>
+        <p>Provide realistic but fictional fee explanation examples for training and penetration-testing writeups.</p>
+      </div>
+      <div class="info-box">
+        <h3>Style</h3>
+        <p>Neutral design with no official branding, badges, or wording that could be mistaken for a live service.</p>
+      </div>
+      <div class="info-box">
+        <h3>Use Case</h3>
+        <p>Security demos, phishing-resilience training, internal stakeholder presentations, and workflow testing.</p>
+      </div>
+    </section>
+
+    <h2 class="section-title">Example Fee Structures</h2>
+
+    <div class="fee-grid">
+      <article class="fee-card">
+        <div class="tag">Scenario A</div>
+        <h2>Outstanding Balance Review</h2>
+        <div class="amount">£529</div>
+        <ul>
+          <li>Partial waiver applied rather than full waiver.</li>
+          <li>Case reviewed and a remaining balance became payable.</li>
+          <li>May reflect reassessment of financial eligibility.</li>
+          <li>Could be presented as an outstanding balance before progression.</li>
+        </ul>
+        <div class="note">
+          Example explanation: “Following review, a remaining balance of £529 is payable before the application can proceed.”
+        </div>
+        <div class="button-row">
+          <a href="#" class="btn btn-primary">View explanation</a>
+          <a href="#" class="btn btn-secondary">Case reference</a>
+        </div>
+      </article>
+
+      <article class="fee-card">
+        <div class="tag">Scenario B</div>
+        <h2>Route Adjustment Fee</h2>
+        <div class="amount">£479</div>
+        <ul>
+          <li>Application moved to a different internal fee category.</li>
+          <li>Original route selection may have been amended on review.</li>
+          <li>System recalculation triggered a revised balance.</li>
+          <li>Used in training to simulate administrative recategorisation.</li>
+        </ul>
+        <div class="note">
+          Example explanation: “Your application has been reassessed under a revised category and an updated fee of £479 is now due.”
+        </div>
+        <div class="button-row">
+          <a href="#" class="btn btn-primary">View explanation</a>
+          <a href="#" class="btn btn-secondary">Case reference</a>
+        </div>
+      </article>
+
+      <article class="fee-card">
+        <div class="tag">Scenario C</div>
+        <h2>Document Revalidation Charge</h2>
+        <div class="amount">£349</div>
+        <ul>
+          <li>Used as a mock example for a revalidation or reprocessing stage.</li>
+          <li>Can simulate missing-document follow-up costs.</li>
+          <li>May represent a reduced balance after initial review.</li>
+          <li>Useful in awareness training around unexpected fee requests.</li>
+        </ul>
+        <div class="note">
+          Example explanation: “Additional document review has resulted in a revised processing charge of £349.”
+        </div>
+        <div class="button-row">
+          <a href="#" class="btn btn-primary">View explanation</a>
+          <a href="#" class="btn btn-secondary">Case reference</a>
+        </div>
+      </article>
+
+      <article class="fee-card">
+        <div class="tag">Scenario D</div>
+        <h2>Linked Applicant Balance</h2>
+        <div class="amount">£189</div>
+        <ul>
+          <li>Main applicant covered, linked applicant not fully covered.</li>
+          <li>Represents a smaller residual fee in a multi-person case.</li>
+          <li>Good for testing whether users spot applicant-specific wording.</li>
+          <li>Helps simulate confusion around who is covered by a waiver.</li>
+        </ul>
+        <div class="note">
+          Example explanation: “The approved waiver applies only to one part of the case. A balance of £189 remains for a linked applicant.”
+        </div>
+        <div class="button-row">
+          <a href="#" class="btn btn-primary">View explanation</a>
+          <a href="#" class="btn btn-secondary">Case reference</a>
+        </div>
+      </article>
+
+      <article class="fee-card">
+        <div class="tag">Scenario E</div>
+        <h2>Enhanced Review Service</h2>
+        <div class="amount">£649</div>
+        <ul>
+          <li>Training-only example of an upgraded review or handling tier.</li>
+          <li>Can be used to test reactions to time-pressure language.</li>
+          <li>Useful in phishing-awareness simulations.</li>
+          <li>Shows how vague “service upgrade” wording can appear plausible.</li>
+        </ul>
+        <div class="note">
+          Example explanation: “Your case has been placed into an enhanced review queue and a revised fee of £649 has been applied.”
+        </div>
+        <div class="button-row">
+          <a href="#" class="btn btn-primary">View explanation</a>
+          <a href="#" class="btn btn-secondary">Case reference</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="footer">
+      This demo is fictional and intended only for internal training, testing, and educational review.
+    </div>
+  </div>
+</body>
+</html>
