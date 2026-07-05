@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employer Portal — Mauritius Learning Passport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   Mauritius Learning Passport — Design System
+   Concept: the site itself reads as a passport — stamped pages, guilloché
+   security patterns, a visa-page grid, and a navy/paper palette drawn from
+   official travel documents rather than generic "startup SaaS" styling.
+   ========================================================================== */
+
+:root {
+  /* ---- Color: passport cover navy, paper cream, wax-stamp coral, gold foil, verified emerald ---- */
+  --navy:        #12213D;
+  --navy-deep:   #0B1729;
+  --navy-soft:   #24365A;
+  --paper:       #F6F2E7;
+  --paper-dim:   #ECE5D3;
+  --ink:         #1A1A17;
+  --ink-soft:    #5B584E;
+  --gold:        #C9962C;
+  --gold-bright: #E3B04B;
+  --coral:       #B3392E;
+  --emerald:     #1F5C4A;
+  --emerald-soft:#DCEAE3;
+  --line:        rgba(18,33,61,0.14);
+  --line-strong: rgba(18,33,61,0.28);
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'IBM Plex Sans', -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  --radius-s: 3px;
+  --radius-m: 6px;
+  --shadow-card: 0 1px 2px rgba(18,33,61,0.06), 0 8px 24px -12px rgba(18,33,61,0.18);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.08;
+  margin: 0 0 0.4em;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+}
+h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 500; }
+h2 { font-size: clamp(1.7rem, 3vw, 2.5rem); }
+h3 { font-size: 1.3rem; }
+p { margin: 0 0 1em; color: var(--ink-soft); }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--coral);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-bottom: 0.9em;
+}
+.eyebrow::before {
+  content: "";
+  width: 18px; height: 1px;
+  background: var(--coral);
+  display: inline-block;
+}
+
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ---- guilloché security-print watermark, used sparingly on navy fields ---- */
+.watermark {
+  background-color: var(--navy);
+  background-image:
+    repeating-radial-gradient(circle at 0 0, transparent 0, transparent 18px, rgba(227,176,75,0.05) 19px, transparent 20px),
+    repeating-radial-gradient(circle at 100% 100%, transparent 0, transparent 18px, rgba(227,176,75,0.05) 19px, transparent 20px);
+  background-size: 90px 90px;
+}
+
+/* ==================== NAV ==================== */
+.site-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--navy);
+  border-bottom: 3px solid var(--gold);
+}
+.site-nav .container {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 68px;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-display);
+  color: var(--paper);
+  font-size: 1.15rem;
+  text-decoration: none;
+  font-weight: 600;
+}
+.brand .mark {
+  width: 30px; height: 30px;
+  border: 1.5px solid var(--gold-bright);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--gold-bright);
+  letter-spacing: 0.02em;
+}
+.nav-links {
+  display: flex; gap: 4px;
+  list-style: none; margin: 0; padding: 0;
+}
+.nav-links a {
+  display: inline-block;
+  padding: 9px 14px;
+  font-size: 0.86rem;
+  color: rgba(246,242,231,0.72);
+  text-decoration: none;
+  border-radius: var(--radius-s);
+  transition: color .15s, background .15s;
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--paper); background: rgba(246,242,231,0.08); }
+.nav-links a.active { color: var(--navy); background: var(--gold-bright); font-weight: 600; }
+.nav-toggle { display: none; }
+
+@media (max-width: 900px) {
+  .nav-links { position: fixed; inset: 68px 0 auto 0; flex-direction: column; background: var(--navy-deep);
+    padding: 10px; gap: 0; border-bottom: 1px solid var(--line-strong); transform: translateY(-8px); opacity: 0;
+    pointer-events: none; transition: all .18s; }
+  .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .nav-links a { display: block; padding: 12px 14px; }
+  .nav-toggle {
+    display: block; background: none; border: 1px solid rgba(246,242,231,0.3); color: var(--paper);
+    width: 38px; height: 34px; border-radius: var(--radius-s); font-size: 1.1rem; cursor: pointer;
+  }
+}
+
+/* ==================== BUTTONS ==================== */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-body); font-weight: 600; font-size: 0.92rem;
+  padding: 12px 22px;
+  border-radius: var(--radius-s);
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--gold-bright); color: var(--navy-deep); }
+.btn-primary:hover { background: var(--gold); box-shadow: 0 6px 18px -8px rgba(201,150,44,0.6); }
+.btn-outline { background: transparent; border-color: rgba(246,242,231,0.4); color: var(--paper); }
+.btn-outline:hover { border-color: var(--paper); }
+.btn-dark { background: var(--navy); color: var(--paper); }
+.btn-dark:hover { background: var(--navy-soft); }
+.btn-sm { padding: 8px 14px; font-size: 0.8rem; }
+.btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+
+/* ==================== SECTIONS / HERO ==================== */
+.section { padding: 88px 0; }
+.section-tight { padding: 56px 0; }
+.section-alt { background: var(--paper-dim); }
+.section-navy { background: var(--navy); color: var(--paper); }
+.section-navy p { color: rgba(246,242,231,0.68); }
+.section-navy h2, .section-navy h3 { color: var(--paper); }
+
+.hero {
+  padding: 76px 0 40px;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: center;
+}
+@media (max-width: 900px) { .hero { grid-template-columns: 1fr; padding-top: 44px; } }
+
+.hero-lede { max-width: 46ch; font-size: 1.08rem; }
+.hero-actions { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+.hero-stats { display: flex; gap: 32px; margin-top: 40px; flex-wrap: wrap; }
+.hero-stats div { font-family: var(--font-mono); }
+.hero-stats b { display: block; font-size: 1.5rem; color: var(--navy); font-family: var(--font-display); }
+.hero-stats span { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); }
+
+/* ---- signature element: the passport booklet card ---- */
+.passport-card {
+  background: var(--navy);
+  color: var(--paper);
+  border-radius: 10px;
+  padding: 30px 28px 26px;
+  position: relative;
+  box-shadow: 0 24px 60px -20px rgba(11,23,41,0.55);
+  background-image:
+    repeating-radial-gradient(circle at 0 0, transparent 0, transparent 16px, rgba(227,176,75,0.06) 17px, transparent 18px);
+  background-size: 70px 70px;
+  border: 1px solid rgba(227,176,75,0.35);
+}
+.passport-card::before {
+  content: "";
+  position: absolute; inset: 8px;
+  border: 1px solid rgba(227,176,75,0.25);
+  border-radius: 6px;
+  pointer-events: none;
+}
+.passport-card .pc-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.passport-card .pc-emblem {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1.5px solid var(--gold-bright);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 0.6rem; color: var(--gold-bright);
+}
+.passport-card .pc-country { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(246,242,231,0.6); text-align: right; }
+.passport-card h4 { font-family: var(--font-display); color: var(--paper); font-size: 1.5rem; margin: 22px 0 2px; }
+.passport-card .pc-role { font-family: var(--font-mono); font-size: 0.76rem; color: var(--gold-bright); letter-spacing: 0.04em; }
+.pc-rows { margin-top: 20px; display: grid; gap: 10px; }
+.pc-row { display: flex; justify-content: space-between; font-size: 0.82rem; border-bottom: 1px dashed rgba(246,242,231,0.18); padding-bottom: 8px; }
+.pc-row span:first-child { color: rgba(246,242,231,0.5); font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.pc-row span:last-child { font-weight: 600; }
+.pc-footer { margin-top: 22px; display: flex; justify-content: space-between; align-items: center; }
+.pc-code { font-family: var(--font-mono); font-size: 0.68rem; color: rgba(246,242,231,0.45); letter-spacing: 0.06em; }
+
+/* ==================== STAMP ==================== */
+.stamp {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+  border: 1.5px solid var(--emerald);
+  color: var(--emerald);
+  padding: 4px 10px 4px 8px;
+  border-radius: 30px;
+  transform: rotate(-2deg);
+  background: var(--emerald-soft);
+}
+.stamp.pending { border-color: var(--gold); color: var(--gold); background: #FBF1DC; }
+.stamp.declined { border-color: var(--coral); color: var(--coral); background: #F7E4E1; }
+.stamp::before { content: "●"; font-size: 0.5rem; }
+
+/* ==================== CARDS / GRID ==================== */
+.grid { display: grid; gap: 24px; }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 900px) { .grid-3, .grid-4 { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 620px) { .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; } }
+
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  padding: 26px;
+  box-shadow: var(--shadow-card);
+}
+.card h3 { margin-bottom: 8px; }
+.card .num {
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--coral);
+  letter-spacing: 0.08em; margin-bottom: 14px; display: block;
+}
+
+.record-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius-s);
+  padding: 18px 20px;
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+  margin-bottom: 12px;
+}
+.record-card .rc-main strong { display: block; font-size: 1rem; margin-bottom: 2px; }
+.record-card .rc-meta { font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink-soft); }
+.record-card .rc-sub { font-size: 0.85rem; color: var(--ink-soft); margin-top: 6px; }
+
+/* ==================== TABLE ==================== */
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { text-align: left; padding: 12px 14px; font-size: 0.88rem; border-bottom: 1px solid var(--line); }
+th { font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-soft); background: var(--paper-dim); }
+.table-wrap { border: 1px solid var(--line); border-radius: var(--radius-m); overflow: hidden; }
+
+/* ==================== FORMS ==================== */
+label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; color: var(--navy); }
+input, select, textarea {
+  width: 100%; font-family: var(--font-body); font-size: 0.94rem;
+  padding: 10px 12px; border: 1.5px solid var(--line-strong); border-radius: var(--radius-s);
+  background: #fff; color: var(--ink); margin-bottom: 16px;
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--gold-bright); outline-offset: 1px; border-color: var(--gold); }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 620px) { .field-row { grid-template-columns: 1fr; } }
+
+.switch { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.switch-track {
+  width: 42px; height: 24px; background: var(--line-strong); border-radius: 30px; position: relative; cursor: pointer;
+  border: none; flex-shrink: 0;
+}
+.switch-track::after { content: ""; position: absolute; width: 18px; height: 18px; background: #fff; border-radius: 50%; top: 3px; left: 3px; transition: left .15s; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+.switch-track.on { background: var(--emerald); }
+.switch-track.on::after { left: 21px; }
+
+/* ==================== TIMELINE / PHASES ==================== */
+.phase {
+  border-top: 3px solid var(--gold);
+  padding-top: 18px;
+}
+.phase .num { font-family: var(--font-mono); color: var(--coral); font-size: 0.78rem; letter-spacing: 0.1em; }
+
+/* ==================== FOOTER ==================== */
+.site-footer {
+  background: var(--navy-deep); color: rgba(246,242,231,0.55);
+  padding: 44px 0 30px; font-size: 0.85rem;
+}
+.site-footer a { color: rgba(246,242,231,0.8); text-decoration: none; }
+.site-footer .foot-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid rgba(246,242,231,0.12); margin-bottom: 20px; }
+
+.divider-perf {
+  height: 1px;
+  background-image: linear-gradient(to right, var(--line-strong) 50%, transparent 0%);
+  background-size: 10px 1px;
+  background-repeat: repeat-x;
+  margin: 0;
+}
+
+.tag {
+  display: inline-block; font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 3px 8px; border-radius: 3px; background: var(--paper-dim); color: var(--navy);
+  border: 1px solid var(--line);
+}
+
+.callout {
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--radius-m);
+  padding: 18px 20px;
+  font-size: 0.9rem;
+  background: var(--paper-dim);
+}
+
+.disclaimer-bar {
+  background: var(--coral);
+  color: #fff;
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+.page-header {
+  padding: 52px 0 30px;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper-dim);
+}
+
+::selection { background: var(--gold-bright); color: var(--navy-deep); }
+
+/* ==================== SESSION BAR / LOGOUT ==================== */
+.session-bar {
+  background: var(--paper-dim);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+.session-bar .container {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 32px;
+}
+.session-bar .who { color: var(--ink-soft); }
+.session-bar .who b { color: var(--navy); }
+.session-bar a.logout {
+  color: var(--coral); text-decoration: none; font-weight: 600;
+}
+.session-bar a.logout:hover { text-decoration: underline; }
+
+/* ==================== LOGIN PAGE ==================== */
+.login-wrap {
+  min-height: calc(100vh - 68px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 900px) { .login-wrap { grid-template-columns: 1fr; } }
+
+.login-side {
+  background: var(--navy);
+  color: var(--paper);
+  padding: 56px 48px;
+  display: flex; flex-direction: column; justify-content: center;
+  background-image: repeating-radial-gradient(circle at 0 0, transparent 0, transparent 18px, rgba(227,176,75,0.05) 19px, transparent 20px);
+  background-size: 90px 90px;
+}
+.login-side p { color: rgba(246,242,231,0.65); }
+
+.role-tabs {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 26px;
+}
+.role-tab {
+  border: 1.5px solid var(--line-strong);
+  background: #fff;
+  border-radius: var(--radius-s);
+  padding: 12px 8px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  transition: all .12s;
+}
+.role-tab .ri { display:block; margin: 0 auto 6px; }
+.role-tab.active { border-color: var(--gold); background: var(--paper-dim); color: var(--navy); }
+
+.login-form-side {
+  padding: 56px 48px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+.creds-table {
+  margin-top: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+}
+.creds-table table { font-size: 0.82rem; }
+.creds-table td.mono, .creds-table th.mono { font-family: var(--font-mono); }
+.creds-fill {
+  font-family: var(--font-mono); font-size: 0.72rem;
+  color: var(--coral); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0;
+}
+
+.login-error {
+  display: none;
+  background: #F7E4E1; color: var(--coral); border: 1px solid var(--coral);
+  border-radius: var(--radius-s); padding: 10px 14px; font-size: 0.85rem; margin-bottom: 16px;
+}
+
+/* role selector cards on homepage */
+.role-card {
+  display: block; text-decoration: none; color: inherit;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius-m);
+  padding: 24px; transition: transform .12s, box-shadow .12s;
+}
+.role-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+.role-card .ri-wrap {
+  width: 44px; height: 44px; border-radius: 50%; background: var(--paper-dim);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
+}
+
+.icon-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%; background: var(--paper-dim); flex-shrink: 0;
+}
+
+
+</style>
+</head>
+<body>
+
+<div class="disclaimer-bar">CONCEPT DEMONSTRATOR — simulated data, stored only in this browser</div>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="brand"><span class="mark">MLP</span> Learning Passport</a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Overview</a></li>
+      <li><a href="citizen.html">Citizen Passport</a></li>
+      <li><a href="institution.html">Institution Portal</a></li>
+      <li><a href="employer.html" class="active">Employer Portal</a></li>
+      <li><a href="dashboard.html">Skills Dashboard</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="session-bar">
+  <div class="container">
+    <span class="who">Signed in as <b id="who-label">—</b> · role: employer</span>
+    <a href="#" class="logout" onclick="mlpLogout(); return false;">Sign out</a>
+  </div>
+</div>
+
+<header class="page-header">
+  <div class="container">
+    <div class="eyebrow" id="emp-eyebrow">Employer view</div>
+    <h1 style="font-size:2.4rem;">Employer Portal</h1>
+    <p>Search for a candidate by name or passport ID and see only the records they've chosen to share.</p>
+  </div>
+</header>
+
+<section class="section-tight">
+  <div class="container">
+    <div class="card" style="max-width:640px;">
+      <label>Search by candidate name or passport ID</label>
+      <div style="display:flex;gap:10px;">
+        <input type="text" id="search-input" placeholder="Try: Aditi, or MU-LP-2025-00417" style="margin-bottom:0;">
+        <button class="btn btn-primary" id="search-btn" style="white-space:nowrap;">Search</button>
+      </div>
+      <p style="font-size:0.8rem;margin:10px 0 0;">Demo candidates: Aditi Ramgoolam, Yannick Li Wan Po, Priya Nundlall.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight section-alt" id="result-section" style="display:none;">
+  <div class="container grid grid-2" style="grid-template-columns:0.8fr 1.2fr;align-items:start;">
+
+    <div class="passport-card">
+      <div class="pc-top">
+        <div class="pc-emblem">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 18c3-7 5-11 8-14 3 3 5 7 8 14-3-2-6-3-8-3s-5 1-8 3z"/></svg>
+        </div>
+        <div class="pc-country">Shared view</div>
+      </div>
+      <h4 id="res-name">—</h4>
+      <div class="pc-role" id="res-programme">—</div>
+      <div class="pc-rows" id="res-scope"></div>
+      <div class="pc-footer">
+        <span class="stamp">Verified identity</span>
+        <span class="pc-code" id="res-id">—</span>
+      </div>
+    </div>
+
+    <div>
+      <h3>Shared &amp; verified qualifications</h3>
+      <div id="res-records"></div>
+
+      <h3 style="margin-top:30px;">Skills match against this role</h3>
+      <label>Role</label>
+      <select id="role-select" style="max-width:320px;">
+        <option value="Software Developer">Software Developer</option>
+        <option value="Civil Engineer">Civil Engineer</option>
+        <option value="Policy Analyst">Policy Analyst</option>
+      </select>
+      <div class="table-wrap" style="margin-top:12px;">
+        <table>
+          <thead><tr><th>Required skill</th><th>Candidate status</th></tr></thead>
+          <tbody id="skills-match"></tbody>
+        </table>
+      </div>
+      <div style="margin-top:18px;">
+        <button class="btn btn-dark" onclick="alert('Shortlisted (demo only)')">Shortlist candidate</button>
+        <button class="btn btn-outline" style="border-color:var(--line-strong);color:var(--navy);" onclick="alert('Request sent to candidate for full profile access (demo only)')">Request fuller access</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight" id="empty-state">
+  <div class="container">
+    <div class="callout">Search for a candidate above to see their shared passport. Only fields the candidate has switched on in their sharing settings will appear here — try turning "Professional certificates" on for Aditi in the Citizen Portal, then search for her again.</div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>Mauritius Learning Passport — concept demonstrator. Data is stored only in this browser (localStorage).</div>
+  </div>
+</footer>
+
+<script>
+// Mauritius Learning Passport — demo authentication layer
+// This simulates login for four roles. Credentials are intentionally shown
+// on the login page itself, since this is a public showcase, not a real
+// identity system. Session state lives in sessionStorage (per browser tab).
+
+const MLP_DEMO_USERS = {
+  citizen: [
+    { username: 'aditi.ramgoolam', password: 'passport123', studentId: 'MU-LP-2025-00417', label: 'Aditi Ramgoolam — Computer Science' },
+    { username: 'yannick.liwanpo', password: 'passport123', studentId: 'MU-LP-2025-00418', label: 'Yannick Li Wan Po — Civil Engineering' },
+    { username: 'priya.nundlall',  password: 'passport123', studentId: 'MU-LP-2025-00419', label: 'Priya Nundlall — Economics' }
+  ],
+  institution: [
+    { username: 'admin.uom', password: 'institution123', label: 'University of Mauritius — Registrar' }
+  ],
+  employer: [
+    { username: 'hr.rogers', password: 'employer123', label: 'Rogers Group — HR' }
+  ],
+  government: [
+    { username: 'admin.moe', password: 'government123', label: 'Ministry of Education — Planning Unit' }
+  ]
+};
+
+const MLP_ROLE_HOME = {
+  citizen: 'citizen.html',
+  institution: 'institution.html',
+  employer: 'employer.html',
+  government: 'dashboard.html'
+};
+
+function mlpAttemptLogin(role, username, password) {
+  const match = (MLP_DEMO_USERS[role] || []).find(u => u.username === username && u.password === password);
+  if (!match) return null;
+  sessionStorage.setItem('mlp_role', role);
+  sessionStorage.setItem('mlp_username', username);
+  if (match.studentId) sessionStorage.setItem('mlp_student_id', match.studentId);
+  return match;
+}
+
+function mlpLogout() {
+  sessionStorage.clear();
+  window.location.href = 'login.html';
+}
+
+// Call at the top of any protected page: mlpRequireRole('citizen')
+function mlpRequireRole(role) {
+  const current = sessionStorage.getItem('mlp_role');
+  if (current !== role) {
+    window.location.href = 'login.html?role=' + role;
+  }
+}
+
+function mlpCurrentUserLabel() {
+  const role = sessionStorage.getItem('mlp_role');
+  const username = sessionStorage.getItem('mlp_username');
+  const found = (MLP_DEMO_USERS[role] || []).find(u => u.username === username);
+  return found ? found.label : username;
+}
+
+</script>
+<script>
+// Mauritius Learning Passport — demo data layer
+// Everything lives in the browser's localStorage so the demo is fully
+// interactive (issuing a certificate in the Institution Portal really
+// updates what the Citizen and Employer portals show) without any server.
+
+const MLP_STORAGE_KEY = 'mlp_students_v1';
+
+const MLP_SEED_STUDENTS = [
+  {
+    id: 'MU-LP-2025-00417',
+    name: 'Aditi Ramgoolam',
+    dob: '14 Mar 2002',
+    district: 'Moka',
+    programme: 'B.Sc. Computer Science',
+    skills: ['Python', 'Data Structures', 'SQL', 'Networking Basics', 'Project Management', 'First Aid'],
+    sharing: { academic: true, professional: false, micro: true, contact: false },
+    records: [
+      { id: 'r1', type: 'academic', title: 'School Certificate', institution: 'ABC College', year: '2020', detail: 'Mathematics — A · English — B · Computer Science — A', status: 'verified' },
+      { id: 'r2', type: 'academic', title: 'Higher School Certificate', institution: 'ABC College', year: '2022', detail: 'Mathematics · Physics · Computer Science', status: 'verified' },
+      { id: 'r3', type: 'academic', title: 'Bachelor of Science, Computer Science', institution: 'University of Mauritius', year: '2025', detail: 'First Class Honours — verified directly by the institution on graduation.', status: 'verified' },
+      { id: 'r4', type: 'professional', title: 'First Aid Certificate', institution: 'Mauritius Red Cross', year: '2024', detail: 'Valid until 2027', status: 'verified' },
+      { id: 'r5', type: 'professional', title: 'Cybersecurity Foundation (short course)', institution: 'Self-submitted', year: '2026', detail: 'Awaiting institution confirmation.', status: 'pending' },
+      { id: 'r6', type: 'micro', title: 'Introduction to Python', institution: 'Open Learning MU', year: '2026', detail: 'Completed Jan 2026', status: 'verified' },
+      { id: 'r7', type: 'micro', title: 'Workplace Communication', institution: 'Rogers Group (employer training)', year: '2025', detail: 'Completed Sep 2025', status: 'verified' },
+      { id: 'r8', type: 'micro', title: 'Data Analytics Basics', institution: 'Coursera', year: '2025', detail: 'Completed Jun 2025', status: 'pending' }
+    ]
+  },
+  {
+    id: 'MU-LP-2025-00418',
+    name: 'Yannick Li Wan Po',
+    dob: '02 Nov 2001',
+    district: 'Plaines Wilhems',
+    programme: 'B.Eng. Civil Engineering',
+    skills: ['AutoCAD', 'Structural Analysis', 'Site Management', 'Health & Safety'],
+    sharing: { academic: true, professional: true, micro: false, contact: false },
+    records: [
+      { id: 'r1', type: 'academic', title: 'School Certificate', institution: 'Royal College Curepipe', year: '2019', detail: 'Mathematics — A · Physics — A · Chemistry — B', status: 'verified' },
+      { id: 'r2', type: 'academic', title: 'Higher School Certificate', institution: 'Royal College Curepipe', year: '2021', detail: 'Mathematics · Physics · Design & Technology', status: 'verified' },
+      { id: 'r3', type: 'academic', title: 'Bachelor of Engineering, Civil Engineering', institution: 'University of Mauritius', year: '2025', detail: 'Verified directly by the institution on graduation.', status: 'verified' },
+      { id: 'r4', type: 'professional', title: 'Site Safety Supervisor Certificate', institution: 'Ministry of Labour', year: '2025', detail: 'Valid until 2028', status: 'verified' }
+    ]
+  },
+  {
+    id: 'MU-LP-2025-00419',
+    name: 'Priya Nundlall',
+    dob: '27 Jul 2003',
+    district: 'Flacq',
+    programme: 'B.A. Economics',
+    skills: ['Data Analysis', 'Public Policy', 'Excel', 'Report Writing'],
+    sharing: { academic: true, professional: false, micro: true, contact: false },
+    records: [
+      { id: 'r1', type: 'academic', title: 'School Certificate', institution: 'Flacq SSS', year: '2020', detail: 'Mathematics — B · English — A · Economics — A', status: 'verified' },
+      { id: 'r2', type: 'academic', title: 'Higher School Certificate', institution: 'Flacq SSS', year: '2022', detail: 'Economics · Mathematics · Sociology', status: 'verified' },
+      { id: 'r3', type: 'academic', title: 'Bachelor of Arts, Economics', institution: 'University of Mauritius', year: '2025', detail: 'Verified directly by the institution on graduation.', status: 'verified' },
+      { id: 'r4', type: 'micro', title: 'Public Policy Analysis', institution: 'Open Learning MU', year: '2026', detail: 'Completed Feb 2026', status: 'verified' }
+    ]
+  }
+];
+
+function mlpSeedIfEmpty() {
+  if (!localStorage.getItem(MLP_STORAGE_KEY)) {
+    localStorage.setItem(MLP_STORAGE_KEY, JSON.stringify(MLP_SEED_STUDENTS));
+  }
+}
+
+function mlpGetStudents() {
+  mlpSeedIfEmpty();
+  return JSON.parse(localStorage.getItem(MLP_STORAGE_KEY));
+}
+
+function mlpGetStudentById(id) {
+  return mlpGetStudents().find(s => s.id === id) || null;
+}
+
+function mlpSaveStudents(list) {
+  localStorage.setItem(MLP_STORAGE_KEY, JSON.stringify(list));
+}
+
+function mlpAddRecord(studentId, record) {
+  const list = mlpGetStudents();
+  const student = list.find(s => s.id === studentId);
+  if (!student) return false;
+  record.id = 'r' + Date.now();
+  student.records.unshift(record);
+  mlpSaveStudents(list);
+  return true;
+}
+
+function mlpSetSharing(studentId, key, value) {
+  const list = mlpGetStudents();
+  const student = list.find(s => s.id === studentId);
+  if (!student) return false;
+  student.sharing[key] = value;
+  mlpSaveStudents(list);
+  return true;
+}
+
+function mlpTotalRecordsIssued() {
+  return mlpGetStudents().reduce((sum, s) => sum + s.records.filter(r => r.status === 'verified').length, 0);
+}
+
+function mlpResetDemoData() {
+  localStorage.removeItem(MLP_STORAGE_KEY);
+  sessionStorage.clear();
+  mlpSeedIfEmpty();
+}
+
+</script>
+<script>
+// Mauritius Learning Passport — shared front-end behaviour
+// Everything here is a client-side simulation for demo purposes only.
+// No data leaves the browser; nothing is sent to a real server.
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Mobile nav toggle
+  const toggle = document.querySelector('.nav-toggle');
+  const links = document.querySelector('.nav-links');
+  if (toggle && links) {
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+  }
+
+  // Generic on/off switches (data sharing permissions, etc.)
+  document.querySelectorAll('.switch-track').forEach(sw => {
+    sw.addEventListener('click', () => {
+      sw.classList.toggle('on');
+      sw.setAttribute('aria-checked', sw.classList.contains('on'));
+      const label = sw.closest('.switch')?.querySelector('.switch-status');
+      if (label) label.textContent = sw.classList.contains('on') ? 'Shared' : 'Not shared';
+    });
+  });
+});
+
+// Simple helper other pages can use to fake a short "processing" delay
+function withDelay(fn, ms = 650) {
+  return new Promise(resolve => setTimeout(() => resolve(fn()), ms));
+}
+
+</script>
+<script>
+mlpRequireRole('employer');
+document.getElementById('who-label').textContent = mlpCurrentUserLabel();
+document.getElementById('emp-eyebrow').textContent = 'Employer view — ' + mlpCurrentUserLabel();
+
+const ROLE_SKILLS = {
+  'Software Developer': ['Python', 'SQL', 'Networking Basics', 'Cloud Infrastructure'],
+  'Civil Engineer': ['AutoCAD', 'Structural Analysis', 'Site Management', 'Health & Safety'],
+  'Policy Analyst': ['Data Analysis', 'Public Policy', 'Excel', 'Report Writing']
+};
+
+let activeStudent = null;
+
+function doSearch() {
+  const q = document.getElementById('search-input').value.trim().toLowerCase();
+  if (!q) return;
+  const student = mlpGetStudents().find(s => s.name.toLowerCase().includes(q) || s.id.toLowerCase().includes(q));
+  if (!student) {
+    document.getElementById('result-section').style.display = 'none';
+    document.getElementById('empty-state').innerHTML = '<div class="container"><div class="callout">No candidate found for "' + q + '". Try: Aditi, Yannick, or Priya.</div></div>';
+    return;
+  }
+  activeStudent = student;
+  renderResult();
+  document.getElementById('result-section').style.display = 'block';
+  document.getElementById('empty-state').innerHTML = '';
+}
+
+function renderResult() {
+  const s = activeStudent;
+  document.getElementById('res-name').textContent = s.name;
+  document.getElementById('res-programme').textContent = s.programme;
+  document.getElementById('res-id').textContent = 'ID ' + s.id;
+
+  const sharedScopes = Object.entries(s.sharing).filter(([,v]) => v).map(([k]) => k);
+  const scopeLabels = { academic: 'Academic history', professional: 'Professional certificates', micro: 'Micro-credentials', contact: 'Contact details' };
+  document.getElementById('res-scope').innerHTML = `<div class="pc-row"><span>Shared scope</span><span>${sharedScopes.map(k => scopeLabels[k]).join(', ') || 'Nothing shared yet'}</span></div>`;
+
+  const visibleRecords = s.records.filter(r => {
+    if (r.type === 'academic') return s.sharing.academic;
+    if (r.type === 'professional') return s.sharing.professional;
+    if (r.type === 'micro') return s.sharing.micro;
+    return false;
+  });
+
+  document.getElementById('res-records').innerHTML = visibleRecords.length ? visibleRecords.map(r => `
+    <div class="record-card">
+      <div class="rc-main">
+        <strong>${r.title}</strong>
+        <div class="rc-meta">${r.institution} · ${r.year}</div>
+      </div>
+      <span class="stamp ${r.status === 'pending' ? 'pending' : ''}">${r.status === 'pending' ? 'Pending' : 'Verified'}</span>
+    </div>
+  `).join('') : '<p>This candidate has not shared any records with this scope yet.</p>';
+
+  renderSkillsMatch();
+}
+
+function renderSkillsMatch() {
+  const role = document.getElementById('role-select').value;
+  const required = ROLE_SKILLS[role];
+  document.getElementById('skills-match').innerHTML = required.map(sk => {
+    const has = activeStudent.skills.some(s => s.toLowerCase() === sk.toLowerCase());
+    return `<tr><td>${sk}</td><td>${has ? '<span class="stamp" style="transform:none;">Match</span>' : '<span class="stamp declined" style="transform:none;">Gap</span>'}</td></tr>`;
+  }).join('');
+}
+
+document.getElementById('search-btn').addEventListener('click', doSearch);
+document.getElementById('search-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') doSearch(); });
+document.getElementById('role-select').addEventListener('change', () => { if (activeStudent) renderSkillsMatch(); });
+</script>
+</body>
+</html>
