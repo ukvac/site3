@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>National Skills Intelligence Dashboard — Mauritius Learning Passport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+</head>
+<body>
+
+<div class="disclaimer-bar">CONCEPT DEMONSTRATOR — figures below are illustrative sample data, not official statistics</div>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="brand"><span class="mark">MLP</span> Learning Passport</a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Overview</a></li>
+      <li><a href="citizen.html">Citizen Passport</a></li>
+      <li><a href="institution.html">Institution Portal</a></li>
+      <li><a href="employer.html">Employer Portal</a></li>
+      <li><a href="ai-assistant.html">AI Career Assistant</a></li>
+      <li><a href="dashboard.html" class="active">Skills Dashboard</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <div class="eyebrow">Government view — anonymised, aggregate data only</div>
+    <h1 style="font-size:2.4rem;">National Skills Intelligence Dashboard</h1>
+    <p>Aggregated, anonymised workforce data drawn from every verified passport — supporting education funding, workforce planning and immigration strategy.</p>
+  </div>
+</header>
+
+<section class="section-tight">
+  <div class="container grid grid-4">
+    <div class="card"><span class="num">SOFTWARE DEVELOPERS</span><h2 style="margin:0;">12,000</h2></div>
+    <div class="card"><span class="num">HEALTHCARE WORKERS</span><h2 style="margin:0;">20,000</h2></div>
+    <div class="card"><span class="num">ENGINEERS</span><h2 style="margin:0;">8,000</h2></div>
+    <div class="card"><span class="num">CYBERSECURITY SPECIALISTS</span><h2 style="margin:0;">500</h2></div>
+  </div>
+</section>
+
+<section class="section-tight section-alt">
+  <div class="container grid grid-2">
+    <div class="card">
+      <h3>Current workforce availability by sector</h3>
+      <canvas id="workforceChart" height="220"></canvas>
+    </div>
+    <div class="card">
+      <h3>Verified qualifications issued per year</h3>
+      <canvas id="trendChart" height="220"></canvas>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container">
+    <h3>Emerging skills gaps</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Sector</th><th>Current supply</th><th>Projected 2028 demand</th><th>Gap</th></tr></thead>
+        <tbody>
+          <tr><td>Cybersecurity</td><td>500</td><td>2,200</td><td><span class="stamp declined" style="transform:none;">-1,700</span></td></tr>
+          <tr><td>Renewable Energy</td><td>640</td><td>1,900</td><td><span class="stamp declined" style="transform:none;">-1,260</span></td></tr>
+          <tr><td>Software Development</td><td>12,000</td><td>15,500</td><td><span class="stamp pending" style="transform:none;">-3,500</span></td></tr>
+          <tr><td>Healthcare</td><td>20,000</td><td>21,200</td><td><span class="stamp" style="transform:none;">-1,200</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:14px;font-size:0.85rem;">This view helps education authorities target funding — for example, expanding cybersecurity training capacity ahead of projected 2028 demand.</p>
+  </div>
+</section>
+
+<section class="section-tight section-alt">
+  <div class="container">
+    <div class="callout">
+      All figures here are computed from anonymised, aggregated passport data. No individual citizen's records are visible at this level — government sees patterns, not people.
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>Mauritius Learning Passport — concept demonstrator. No real citizen data is stored or transmitted.</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+const navy = '#12213D', gold = '#C9962C', coral = '#B3392E', emerald='#1F5C4A';
+
+new Chart(document.getElementById('workforceChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Software Dev', 'Healthcare', 'Engineering', 'Cybersecurity', 'Renewable Energy'],
+    datasets: [{
+      label: 'Verified workers',
+      data: [12000, 20000, 8000, 500, 640],
+      backgroundColor: [navy, navy, navy, coral, gold]
+    }]
+  },
+  options: {
+    plugins: { legend: { display: false } },
+    scales: { y: { beginAtZero: true, grid: { color: '#ECE5D3' } }, x: { grid: { display:false } } }
+  }
+});
+
+new Chart(document.getElementById('trendChart'), {
+  type: 'line',
+  data: {
+    labels: ['2021', '2022', '2023', '2024', '2025', '2026'],
+    datasets: [{
+      label: 'Verified qualifications issued',
+      data: [8200, 9400, 11100, 13800, 16200, 18900],
+      borderColor: emerald,
+      backgroundColor: 'rgba(31,92,74,0.12)',
+      fill: true,
+      tension: 0.35
+    }]
+  },
+  options: {
+    plugins: { legend: { display: false } },
+    scales: { y: { beginAtZero: true, grid: { color: '#ECE5D3' } }, x: { grid: { display:false } } }
+  }
+});
+</script>
+</body>
+</html>

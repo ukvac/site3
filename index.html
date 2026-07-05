@@ -1,351 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UKVI - Fee Explanation Portal</title>
-  <style>
-    :root {
-      --bg: #f4f7fb;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --border: #dbe3ee;
-      --accent: #1d4ed8;
-      --accent-dark: #153eaa;
-      --warning-bg: #fff7ed;
-      --warning-border: #fdba74;
-      --success-bg: #ecfdf3;
-      --success-border: #86efac;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      --radius: 18px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-    }
-
-    .topbar {
-      background: #111827;
-      color: #fff;
-      padding: 16px 24px;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 32px auto;
-      padding: 0 20px 40px;
-    }
-
-    .banner {
-      background: var(--warning-bg);
-      border: 1px solid var(--warning-border);
-      border-radius: 14px;
-      padding: 16px 18px;
-      margin-bottom: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .banner strong {
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .hero {
-      background: linear-gradient(135deg, #ffffff, #eef4ff);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px;
-      box-shadow: var(--shadow);
-      margin-bottom: 24px;
-    }
-
-    .hero h1 {
-      margin: 0 0 10px;
-      font-size: 32px;
-    }
-
-    .hero p {
-      margin: 0;
-      color: var(--muted);
-      max-width: 800px;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      margin: 24px 0 30px;
-    }
-
-    .info-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .info-box h3 {
-      margin: 0 0 8px;
-      font-size: 17px;
-    }
-
-    .info-box p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .section-title {
-      margin: 0 0 16px;
-      font-size: 24px;
-    }
-
-    .fee-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
-    }
-
-    .fee-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .fee-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 6px;
-      background: var(--accent);
-    }
-
-    .fee-card h2 {
-      margin: 0 0 8px;
-      font-size: 22px;
-    }
-
-    .amount {
-      font-size: 34px;
-      font-weight: 700;
-      color: var(--accent-dark);
-      margin-bottom: 14px;
-    }
-
-    .tag {
-      display: inline-block;
-      background: #e0eaff;
-      color: var(--accent-dark);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-
-    .fee-card ul {
-      margin: 0 0 16px 18px;
-      padding: 0;
-    }
-
-    .fee-card li {
-      margin-bottom: 8px;
-      color: #374151;
-      font-size: 14px;
-    }
-
-    .note {
-      background: var(--success-bg);
-      border: 1px solid var(--success-border);
-      border-radius: 12px;
-      padding: 12px 14px;
-      font-size: 14px;
-      color: #166534;
-    }
-
-    .footer {
-      margin-top: 32px;
-      color: var(--muted);
-      font-size: 13px;
-      text-align: center;
-    }
-
-    .button-row {
-      margin-top: 14px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-block;
-      text-decoration: none;
-      border-radius: 12px;
-      padding: 11px 16px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .btn-secondary {
-      border: 1px solid var(--border);
-      color: var(--text);
-      background: #fff;
-    }
-
-    @media (max-width: 640px) {
-      .hero h1 {
-        font-size: 26px;
-      }
-
-      .amount {
-        font-size: 28px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mauritius Learning Passport — One Citizen. One Verified Learning Identity.</title>
+<meta name="description" content="A national digital education, skills and career identity platform for Mauritius.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-  <div class="topbar">UKVI Fee Structure</div>
 
+<div class="disclaimer-bar">CONCEPT DEMONSTRATOR — simulated data only, built to illustrate the proposal, not a live government service</div>
+
+<nav class="site-nav">
   <div class="container">
-    <div class="banner">
-      <strong>Internal Security Awareness Use Only</strong>
-      This page shows you the structure of additional fees that UKVI may ask the applicant. Always use the correct form when applying online..
+    <a href="index.html" class="brand"><span class="mark">MLP</span> Learning Passport</a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Overview</a></li>
+      <li><a href="citizen.html">Citizen Passport</a></li>
+      <li><a href="institution.html">Institution Portal</a></li>
+      <li><a href="employer.html">Employer Portal</a></li>
+      <li><a href="ai-assistant.html">AI Career Assistant</a></li>
+      <li><a href="dashboard.html">Skills Dashboard</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="container hero">
+  <div>
+    <div class="eyebrow">Republic of Mauritius — Digital Education Identity</div>
+    <h1>One citizen.<br>One verified<br>learning identity.</h1>
+    <p class="hero-lede">Mauritius Learning Passport brings every academic result, vocational award, professional certificate and training record into a single trusted digital profile — replacing paper certificates with a lifelong, verifiable skills record.</p>
+    <div class="hero-actions">
+      <a href="citizen.html" class="btn btn-primary">Open a citizen passport →</a>
+      <a href="#solution" class="btn btn-dark">See how it works</a>
     </div>
-
-    <section class="hero">
-      <h1>Fee Explanation Scenarios</h1>
-      <p>
-        This page shows example fee structures and possible explanations for why a user may be asked to pay a revised balance.
-      </p>
-    </section>
-
-
-    <h2 class="section-title"> Fee Structures</h2>
-
-    <div class="fee-grid">
-      <article class="fee-card">
-        <div class="tag">Scenario A</div>
-        <h2>Outstanding Balance Review</h2>
-        <div class="amount">£529</div>
-        <ul>
-          <li>Partial waiver applied rather than full waiver.</li>
-          <li>Case reviewed and a remaining balance became payable.</li>
-          <li>May reflect reassessment of financial eligibility.</li>
-          <li>Could be presented as an outstanding balance before progression.</li>
-        </ul>
-        <div class="note">
-          Example explanation: “Following review, a remaining balance of £529 is payable before the application can proceed.”
-        </div>
-        <div class="button-row">
-          <a href="#" class="btn btn-primary">View explanation</a>
-          <a href="#" class="btn btn-secondary">Case reference</a>
-        </div>
-      </article>
-
-      <article class="fee-card">
-        <div class="tag">Scenario B</div>
-        <h2>Route Adjustment Fee</h2>
-        <div class="amount">£479</div>
-        <ul>
-          <li>Application moved to a different internal fee category.</li>
-          <li>Original route selection may have been amended on review.</li>
-          <li>System recalculation triggered a revised balance.</li>
-          <li>Used in training to simulate administrative recategorisation.</li>
-        </ul>
-        <div class="note">
-          Example explanation: “Your application has been reassessed under a revised category and an updated fee of £479 is now due.”
-        </div>
-        <div class="button-row">
-          <a href="#" class="btn btn-primary">View explanation</a>
-          <a href="#" class="btn btn-secondary">Case reference</a>
-        </div>
-      </article>
-
-      <article class="fee-card">
-        <div class="tag">Scenario C</div>
-        <h2>Document Revalidation Charge</h2>
-        <div class="amount">£349</div>
-        <ul>
-          <li>Used as a mock example for a revalidation or reprocessing stage.</li>
-          <li>Can simulate missing-document follow-up costs.</li>
-          <li>May represent a reduced balance after initial review.</li>
-          <li>Useful in awareness training around unexpected fee requests.</li>
-        </ul>
-        <div class="note">
-          Example explanation: “Additional document review has resulted in a revised processing charge of £349.”
-        </div>
-        <div class="button-row">
-          <a href="#" class="btn btn-primary">View explanation</a>
-          <a href="#" class="btn btn-secondary">Case reference</a>
-        </div>
-      </article>
-
-      <article class="fee-card">
-        <div class="tag">Scenario D</div>
-        <h2>Linked Applicant Balance</h2>
-        <div class="amount">£189</div>
-        <ul>
-          <li>Main applicant covered, linked applicant not fully covered.</li>
-          <li>Represents a smaller residual fee in a multi-person case.</li>
-          <li>Good for testing whether users spot applicant-specific wording.</li>
-          <li>Helps simulate confusion around who is covered by a waiver.</li>
-        </ul>
-        <div class="note">
-          Example explanation: “The approved waiver applies only to one part of the case. A balance of £189 remains for a linked applicant.”
-        </div>
-        <div class="button-row">
-          <a href="#" class="btn btn-primary">View explanation</a>
-          <a href="#" class="btn btn-secondary">Case reference</a>
-        </div>
-      </article>
-
-      <article class="fee-card">
-        <div class="tag">Scenario E</div>
-        <h2>Enhanced Review Service</h2>
-        <div class="amount">£649</div>
-        <ul>
-          <li>Training-only example of an upgraded review or handling tier.</li>
-          <li>Can be used to test reactions to time-pressure language.</li>
-          <li>Useful in phishing-awareness simulations.</li>
-          <li>Shows how vague “service upgrade” wording can appear plausible.</li>
-        </ul>
-        <div class="note">
-          Example explanation: “Your case has been placed into an enhanced review queue and a revised fee of £649 has been applied.”
-        </div>
-        <div class="button-row">
-          <a href="#" class="btn btn-primary">View explanation</a>
-          <a href="#" class="btn btn-secondary">Case reference</a>
-        </div>
-      </article>
-    </div>
-
-    <div class="footer">
-      This page is for information on UKVI additional fees. 
+    <div class="hero-stats">
+      <div><b>1</b><span>Verified profile per citizen</span></div>
+      <div><b>4</b><span>Connected portals</span></div>
+      <div><b>3</b><span>Rollout phases</span></div>
     </div>
   </div>
+
+  <div class="passport-card">
+    <div class="pc-top">
+      <div class="pc-emblem">MU</div>
+      <div class="pc-country">Learning Passport<br>Digital Identity</div>
+    </div>
+    <h4>Aditi Ramgoolam</h4>
+    <div class="pc-role">B.Sc. Computer Science · University of Mauritius</div>
+    <div class="pc-rows">
+      <div class="pc-row"><span>School Certificate</span><span>ABC College, 2020</span></div>
+      <div class="pc-row"><span>HSC</span><span>Maths · Physics · Comp Sci</span></div>
+      <div class="pc-row"><span>Degree</span><span>Verified 2025</span></div>
+      <div class="pc-row"><span>Micro-credentials</span><span>3 completed</span></div>
+    </div>
+    <div class="pc-footer">
+      <span class="stamp">Verified</span>
+      <span class="pc-code">ID MU-LP-2025-00417</span>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="problem">
+  <div class="container">
+    <div class="eyebrow">The current problem</div>
+    <h2>Education records are scattered across a lifetime of institutions.</h2>
+    <p style="max-width:64ch;font-size:1.05rem;">A single citizen's history — school, A-Levels, university, vocational training, employer certificates — sits in filing cabinets and separate databases across schools, universities, training providers, examination authorities and employers. Nobody holds the whole picture.</p>
+
+    <div class="grid grid-3" style="margin-top:36px;">
+      <div class="card">
+        <span class="num">FOR CITIZENS</span>
+        <h3>Lost paperwork, repeated proof</h3>
+        <p>Certificates get damaged or lost, and the same documents are re-submitted for every job or course application.</p>
+      </div>
+      <div class="card">
+        <span class="num">FOR EMPLOYERS</span>
+        <h3>Slow, manual verification</h3>
+        <p>Checking qualifications by hand is slow and leaves room for fraudulent certificates to slip through.</p>
+      </div>
+      <div class="card">
+        <span class="num">FOR GOVERNMENT</span>
+        <h3>No national skills picture</h3>
+        <p>Without unified data, planning education funding and workforce policy relies on guesswork.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="solution">
+  <div class="container">
+    <div class="eyebrow">The proposed solution</div>
+    <h2>A secure digital profile that follows every citizen through school, training and work.</h2>
+    <p style="max-width:60ch;">Four connected portals share one verified record — each institution confirms what it taught, each citizen controls what they share, and government sees the aggregate picture without touching personal data.</p>
+
+    <div class="grid grid-4" style="margin-top:40px;">
+      <div class="card">
+        <span class="num">01</span>
+        <h3>Citizen Passport</h3>
+        <p>Personal learning profile: academic history, skills, training, career record — owned entirely by the citizen.</p>
+        <a href="citizen.html" class="btn btn-sm btn-dark" style="margin-top:6px;">View demo →</a>
+      </div>
+      <div class="card">
+        <span class="num">02</span>
+        <h3>Institution Portal</h3>
+        <p>Schools, universities and training providers register students and issue verified digital certificates directly.</p>
+        <a href="institution.html" class="btn btn-sm btn-dark" style="margin-top:6px;">View demo →</a>
+      </div>
+      <div class="card">
+        <span class="num">03</span>
+        <h3>Employer Portal</h3>
+        <p>Candidates share a time-limited link; employers see verified qualifications instantly, no phone calls required.</p>
+        <a href="employer.html" class="btn btn-sm btn-dark" style="margin-top:6px;">View demo →</a>
+      </div>
+      <div class="card">
+        <span class="num">04</span>
+        <h3>Skills Intelligence</h3>
+        <p>Anonymised national data on workforce availability, feeding education funding and labour policy.</p>
+        <a href="dashboard.html" class="btn btn-sm btn-dark" style="margin-top:6px;">View demo →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-navy">
+  <div class="container">
+    <div class="grid grid-2" style="align-items:center;">
+      <div>
+        <div class="eyebrow" style="color:var(--gold-bright);">Citizen control</div>
+        <h2>The citizen decides who sees what, and for how long.</h2>
+        <p>Every share is scoped and reversible: a specific set of records, a specific viewer, a specific expiry date. Nothing is visible by default.</p>
+        <a href="citizen.html" class="btn btn-outline">See the sharing controls →</a>
+      </div>
+      <div class="card" style="background:var(--navy-soft);border-color:rgba(227,176,75,0.3);">
+        <div class="switch" style="border-color:rgba(246,242,231,0.15);">
+          <div><strong style="color:var(--paper);">Full academic history</strong><div class="switch-status" style="font-family:var(--font-mono);font-size:0.72rem;color:var(--gold-bright);">Shared</div></div>
+          <button class="switch-track on" aria-checked="true"></button>
+        </div>
+        <div class="switch" style="border-color:rgba(246,242,231,0.15);">
+          <div><strong style="color:var(--paper);">Professional certificates</strong><div class="switch-status" style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(246,242,231,0.5);">Not shared</div></div>
+          <button class="switch-track" aria-checked="false"></button>
+        </div>
+        <div class="switch" style="border:none;">
+          <div><strong style="color:var(--paper);">Contact details</strong><div class="switch-status" style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(246,242,231,0.5);">Not shared</div></div>
+          <button class="switch-track" aria-checked="false"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="eyebrow">Rollout</div>
+    <h2>A three-phase implementation path.</h2>
+    <div class="grid grid-3" style="margin-top:36px;">
+      <div class="phase">
+        <div class="num">PHASE 1</div>
+        <h3>Minimum viable platform</h3>
+        <p>Citizen profiles, certificate uploads, digital portfolio, institution verification, employer sharing.</p>
+      </div>
+      <div class="phase">
+        <div class="num">PHASE 2</div>
+        <h3>Education integration</h3>
+        <p>Direct connections to schools, universities, training centres and examination bodies for automatic issuing.</p>
+      </div>
+      <div class="phase">
+        <div class="num">PHASE 3</div>
+        <h3>National expansion</h3>
+        <p>AI career guidance, skills analytics, government dashboards and workforce intelligence tools.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container" style="text-align:center;max-width:720px;">
+    <div class="eyebrow" style="justify-content:center;">Long-term vision</div>
+    <h2>From static paper certificates to a living digital identity.</h2>
+    <p style="font-size:1.05rem;">A platform where every citizen owns a trusted record of their education journey, every employer can confidently identify talent, and government can plan with real skills data — the foundation of a national digital skills economy.</p>
+    <div class="hero-actions" style="justify-content:center;">
+      <a href="citizen.html" class="btn btn-primary">Explore the citizen passport →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-top">
+      <div><strong style="color:var(--paper);">Mauritius Learning Passport</strong><br>A concept proposal for national digital education infrastructure.</div>
+      <div><a href="index.html">Overview</a> · <a href="citizen.html">Citizen</a> · <a href="institution.html">Institution</a> · <a href="employer.html">Employer</a> · <a href="ai-assistant.html">AI Assistant</a> · <a href="dashboard.html">Dashboard</a></div>
+    </div>
+    <div>This site is a static, front-end-only demonstrator built to showcase the MLP concept. No real citizen data is stored or transmitted.</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
 </body>
 </html>

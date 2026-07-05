@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Institution Portal — Mauritius Learning Passport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+<div class="disclaimer-bar">CONCEPT DEMONSTRATOR — simulated data only</div>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="brand"><span class="mark">MLP</span> Learning Passport</a>
+    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links">
+      <li><a href="index.html">Overview</a></li>
+      <li><a href="citizen.html">Citizen Passport</a></li>
+      <li><a href="institution.html" class="active">Institution Portal</a></li>
+      <li><a href="employer.html">Employer Portal</a></li>
+      <li><a href="ai-assistant.html">AI Career Assistant</a></li>
+      <li><a href="dashboard.html">Skills Dashboard</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <div class="eyebrow">Institution view — University of Mauritius</div>
+    <h1 style="font-size:2.4rem;">Institution Portal</h1>
+    <p>Register students, upload results and issue verified digital certificates directly into their passports.</p>
+  </div>
+</header>
+
+<section class="section-tight">
+  <div class="container grid grid-3">
+    <div class="card"><span class="num">STUDENTS REGISTERED</span><h2 style="margin:0;">4,812</h2></div>
+    <div class="card"><span class="num">CERTIFICATES ISSUED — 2025/26</span><h2 style="margin:0;">1,340</h2></div>
+    <div class="card"><span class="num">PENDING CONFIRMATION</span><h2 style="margin:0;">27</h2></div>
+  </div>
+</section>
+
+<section class="section-tight section-alt">
+  <div class="container grid grid-2" style="grid-template-columns:1fr 1fr;align-items:start;">
+
+    <div>
+      <h3>Issue a new certificate</h3>
+      <div class="card">
+        <label>Student</label>
+        <select>
+          <option>Aditi Ramgoolam — MU-LP-2025-00417</option>
+          <option>Yannick Li Wan Po — MU-LP-2025-00418</option>
+          <option>Priya Nundlall — MU-LP-2025-00419</option>
+        </select>
+        <div class="field-row">
+          <div>
+            <label>Qualification</label>
+            <input type="text" value="Bachelor of Science, Computer Science">
+          </div>
+          <div>
+            <label>Year completed</label>
+            <input type="text" value="2025">
+          </div>
+        </div>
+        <label>Result / classification</label>
+        <input type="text" value="First Class Honours">
+        <label>Notes (visible to citizen only)</label>
+        <textarea rows="2">Final year project: distinction.</textarea>
+        <button class="btn btn-primary" onclick="event.preventDefault(); document.getElementById('issued-msg').style.display='block';">Issue &amp; sign certificate</button>
+        <p id="issued-msg" style="display:none;color:var(--emerald);font-weight:600;margin-top:12px;">✓ Certificate issued and pushed to the student's passport (demo).</p>
+      </div>
+    </div>
+
+    <div>
+      <h3>Recently issued</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Student</th><th>Qualification</th><th>Date</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Aditi Ramgoolam</td><td>B.Sc. Computer Science</td><td>18 Jun 2025</td><td><span class="stamp" style="transform:none;">Verified</span></td></tr>
+            <tr><td>Yannick Li Wan Po</td><td>B.Eng. Civil Engineering</td><td>18 Jun 2025</td><td><span class="stamp" style="transform:none;">Verified</span></td></tr>
+            <tr><td>Priya Nundlall</td><td>B.A. Economics</td><td>17 Jun 2025</td><td><span class="stamp" style="transform:none;">Verified</span></td></tr>
+            <tr><td>Kevin Appadoo</td><td>B.Sc. Computer Science</td><td>17 Jun 2025</td><td><span class="stamp pending" style="transform:none;">Pending signature</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:30px;">Registered students</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Passport ID</th><th>Programme</th><th>Year</th></tr></thead>
+          <tbody>
+            <tr><td>Aditi Ramgoolam</td><td class="tag">MU-LP-00417</td><td>Computer Science</td><td>Final</td></tr>
+            <tr><td>Yannick Li Wan Po</td><td class="tag">MU-LP-00418</td><td>Civil Engineering</td><td>Final</td></tr>
+            <tr><td>Priya Nundlall</td><td class="tag">MU-LP-00419</td><td>Economics</td><td>Final</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container">
+    <div class="callout">
+      <strong>How verification works:</strong> when an institution issues a record, it is cryptographically signed and stamped directly into the citizen's passport. The citizen cannot alter a verified record — only the issuing institution can amend or revoke it.
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>Mauritius Learning Passport — concept demonstrator. No real citizen data is stored or transmitted.</div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
